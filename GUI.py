@@ -71,7 +71,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.button = QtWidgets.QPushButton('Take Screen')
         self.button.clicked.connect(self.activateSnipping)
-        self.button.setStyleSheet("margin: 10px; width: 150px; height: 50px;")
+        self.button.setStyleSheet("width: 150px; height: 50px")
 
         self.answer = QtWidgets.QTextEdit("Здесь появится ответ на ваш вопрос!")
         self.answer.style()
@@ -110,8 +110,9 @@ class Ai(QThread):
         try:
             msg = "Реши задание, напиши ответ." + text_response()
             self.result_ready.emit(AI_func(msg))
-        except Exception:
+        except Exception as ex:
             self.result_ready.emit("Поменяйте API код в настройках. Бесплатный период закончился!")
+            print(ex)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
